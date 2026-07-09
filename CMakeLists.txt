@@ -1,7 +1,11 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 4.4.0)
 
 set(PROJECT_NAME cmake_project_example)
 set(CMAKE_CXX_STANDARD 17)
+
+set(WINDOW_NAME "Hello, OpenGL!")
+set(WINDOW_WIDTH 960)
+set(WINDOW_HEIGHT 540)
 
 project(${PROJECT_NAME})
 add_compile_options(/utf-8)
@@ -13,6 +17,12 @@ include(Dependency.cmake)
 target_include_directories(${PROJECT_NAME} PUBLIC ${DEP_INCLUDE_DIR})
 target_link_directories(${PROJECT_NAME} PUBLIC ${DEP_LIB_DIR})
 target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS})
+
+target_compile_definitions(${PROJECT_NAME} PUBLIC
+    WINDOW_NAME="${WINDOW_NAME}"
+    WINDOW_WIDTH=${WINDOW_WIDTH}
+    WINDOW_HEIGHT=${WINDOW_HEIGHT}
+)
 
 # Dependancy들이 먼저 build 될 수 있게 관계 설정
 add_dependencies(${PROJECT_NAME} ${DEP_LIST})
